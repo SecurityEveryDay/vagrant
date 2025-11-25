@@ -1,6 +1,11 @@
 # Introdução ao Vagrant (Windows + VirtualBox)
 
-Este guia é um tutorial **básico** de instalação e uso do **Vagrant** em **Windows**, usando **VirtualBox** como provedor.  
+Este guia é um tutorial **básico** de instalação e uso do **Vagrant** em **Windows**, usando **VirtualBox** como provedor para os laboratorios fornecidos pela **SecDay**.  
+
+Para mais informações **acesse nosso academy** em [https://academy.secday.com.br](https://academy.secday.com.br)
+
+Ou nosso **canal no Youtube** em [https://www.youtube.com/@secday](https://www.youtube.com/@secday)
+
 Inclui exemplos de:
 
 - Instalar Vagrant  
@@ -31,11 +36,16 @@ Neste guia vamos usar:
 
 ## 2. Pré-requisitos
 
-1. **Windows 10 ou 11** (64 bits)
-2. Acesso de administrador para instalar programas
-3. Suporte a virtualização ativado na BIOS/UEFI  
+1. **Windows 10 ou 11**, Linux **Ubuntu** ou **Debian** (64 bits), **macOS** (Testado apenas em processadores Intel) 
+2. Acesso de administrador ou root para instalar programas
+3. Espaço em disco de pelo menos 80GB
+4. Processador minimo **core I5** ou **equivalentes AMD**
+5. Pelo menos 8GB de RAM 
+6. Suporte a virtualização ativado na BIOS/UEFI  
    - Normalmente chama-se **Intel VT-x**, **AMD-V** ou “Virtualization Technology”
-1. **VirtualBox** Instalado
+7. **VirtualBox** Instalado
+8. **macOS** gerenciador de pacotes [brew](https://brew.sh/) instalado
+9. **Ubuntu/Debian**: wget instalado e pacotes apt atualizados `apt update -y && apt install wget -y`
 
 ---
 
@@ -43,10 +53,11 @@ Neste guia vamos usar:
 
 ### 3.1. Instalar o Vagrant
 
-1. Acesse o site oficial do [Vagrant](https://developer.hashicorp.com/vagrant/install#windows).  
-2. Baixe o instalador para **Windows**.  
-3. Execute o instalador (`.msi`) e siga os passos padrão (ao final, você precisará reiniciar sua maquina).  
-4. Após instalar e reiniciar a maquina, abra o **PowerShell** ou **Prompt de Comando** e verifique:
+1. Acesse o site oficial do [Vagrant](https://developer.hashicorp.com/vagrant/install).  
+2. Baixe o instalador para **Windows** ou **Linux** (Dependendo do sistema Operaciona que utilize).  
+3. **Windows**: Execute o instalador (`.msi`) e siga os passos padrão (ao final, você precisará reiniciar sua maquina).
+4. **Linux** ou **macOS**: Executar a linha de comando fornecida pela documentação e aguardar instalação
+5. Após instalar e reiniciar a maquina, abra o **PowerShell** ou **Prompt de Comando** e verifique:
 
 ```powershell
 vagrant --version
