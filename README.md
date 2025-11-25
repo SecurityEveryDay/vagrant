@@ -117,6 +117,7 @@ Abra o `Vagrantfile` em um editor de texto (Notepad++, VS Code, etc.) e deixe pa
 
 ```ruby
 Vagrant.configure("2") do |config|
+  GRUPO_VBOX = "/SecDay"
   # Box base
   config.vm.box = "SecDay/ubuntu"
   config.vm.hostname = "ubuntu.local"
@@ -197,6 +198,7 @@ vagrant init SecDay/windows_2022
 
 ```ruby
 Vagrant.configure("2") do |config|
+  GRUPO_VBOX = "/SecDay"
   config.vm.box = "SecDay/windows_2022"
   config.vm.hostname = "windows2022"
   config.vm.network "private_network", ip: "192.168.56.11"
@@ -252,6 +254,7 @@ vagrant init SecDay/kali
 
 ```ruby
 Vagrant.configure("2") do |config|
+   GRUPO_VBOX = "/SecDay"
    config.vm.box      = "SecDay/kali"
    config.vm.hostname = "kali.local"
    config.vm.network "private_network", ip: "192.168.56.12"
