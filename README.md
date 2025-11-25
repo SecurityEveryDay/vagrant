@@ -276,5 +276,7 @@ vagrant box update
     
 - Evite abrir/alterar a VM diretamente pelo VirtualBox enquanto o Vagrant está gerenciando a máquina.
 
+- Caso você precise alterar o diretório onde as imagens são armazenadas devido à falta de espaço em disco, abra o terminal PowerShell e execute o comando: `$env:VAGRANT_HOME = "D:\TMP\vagrantbox\"` (Altere o caminho para o diretório no disco onde você possui espaço disponível.)
+
 - Você pode acessar diretamente a documentação para mais detalhes [aqui](https://developer.hashicorp.com/vagrant/docs)
     
