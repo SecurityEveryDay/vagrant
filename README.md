@@ -11,7 +11,8 @@ Inclui exemplos de:
 - Instalar Vagrant  
 - Conceitos básicos
 - Subir uma VM **Linux** da SecDay
-- Subir uma VM **Windows** da SecDat  
+- Subir uma VM **Windows** da SecDay
+- Subir uma VM **Kali** da SecDay  
 - Acessar VMS
 
 ---
@@ -91,7 +92,7 @@ vagrant status  # Mostra o estado da VM
 
 ---
 
-## 5. Criando uma VM Linux (exemplo com Ubuntu)
+## 5. Criando uma VM Linux da SecDay
 
 ### 5.1. Criar a pasta do projeto
 
@@ -146,11 +147,11 @@ vagrant up
 
 O Vagrant irá:
 
-1. Baixar a box (primeira vez)
+1. Baixar a box (primeira vez), esse processo pode levar alguns minutos, a imagem `SecDay/ubuntu` tem em media 2GB de tamanho, então, dependendo da velocidade da sua internet, isso pode levar um tempo.
     
-2. Criar a VM no VirtualBox
+3. Criar a VM no VirtualBox
     
-3. Iniciar a VM
+4. Iniciar a VM
     
 
 ### 5.5. Acessar a VM via SSH
@@ -215,6 +216,8 @@ end
 
 ### 6.4. Subir a VM Windows
 
+Esse processo pode levar alguns minutos, a imagem `SecDay/windows2022` tem em media 9GB de tamanho, então, dependendo da velocidade da sua internet, isso pode levar um tempo.
+
 ```powershell
 vagrant up
 ```
@@ -230,28 +233,96 @@ vagrant destroy
 Isso irá remover a VM criada e todos os seus arquivos. Uma mensagem de confirmação aparecerá na tela; selecione `y` para prosseguir com a exclusão.
 
 ---
+## 7. Criando uma VM Kali da SecDay
 
-## 7. Acessando a VM Windows via Remote Desktop
+### 7.1. Criar a pasta do projeto Windows
 
-A box Windows da SecDay vem com o RDP habilitado e você pode acessar pela porta de RDP:
+```powershell
+mkdir C:\vagrant\kali
+cd C:\vagrant\kali
+```
+
+### 7.2. Inicializar com a box Kali 
+
+```powershell
+vagrant init SecDay/kali
+```
+
+### 7.3. Exemplo de Vagrantfile para o Kali
+
+```ruby
+Vagrant.configure("2") do |config|
+   config.vm.box      = "SecDay/kali"
+   config.vm.hostname = "kali.local"
+   config.vm.network "private_network", ip: "192.168.56.12"
+   config.vm.network "forwarded_port", guest: 3389, host: 33892, protocol: "tcp", auto_correct: true
+   config.ssh.username = "vagrant"
+   config.ssh.password = "vagrant"
+   config.vm.provision "shell",
+     inline: "sudo apt install -y --reinstall virtualbox-guest-x11 && reboot"
+
+   config.vm.provider "virtualbox" do |vb|
+     vb.memory = 2048
+     vb.cpus   = 1
+     vb.name   = "kali-SecDay"
+     vb.customize ["modifyvm", :id, "--groups", GRUPO_VBOX]
+   end
+end
+```
+
+### 7.4. Subir a VM Kali
+
+Esse processo pode levar alguns minutos, a imagem `SecDay/kali` tem em media 16GB de tamanho, então, dependendo da velocidade da sua internet, isso pode levar um tempo.
+
+```powershell
+vagrant up
+```
+
+Se tudo estiver configurado corretamente, o Vagrant irá subir a VM Kali no VirtualBox e se comunicar com ela via **SSH**.
+
+### 7.5. Destruir a VM
+
+```
+vagrant destroy
+```
+
+Isso irá remover a VM criada e todos os seus arquivos. Uma mensagem de confirmação aparecerá na tela; selecione `y` para prosseguir com a exclusão.
+
+### 7.6. Acessar a VM via SSH
+
+```powershell
+vagrant ssh
+```
+
+Isso já entra na VM como usuário padrão (`vagrant`), sem precisar configurar chave ou senha manualmente.
+
+Para sair da VM:
+
+```bash
+exit
+```
+
+### 7.7 Acessando a VM Kali via Remote Desktop
+
+A box Kali da SecDay vem com o RDP habilitado e você pode acessar pela porta de RDP:
 
 No `Vagrantfile`, por exemplo:
 
 ```ruby
-config.vm.network "forwarded_port", guest: 3389, host: 33891, auto_correct: true
+config.vm.network "forwarded_port", guest: 3389, host: 33892, auto_correct: true
 ```
 
 Depois de subir a VM:
 
 1. Abra **Conexão de Área de Trabalho Remota** no Windows (`mstsc`).
     
-2. Conecte em: `localhost:33891`
+2. Conecte em: `localhost:33892`
     
 3. Use o usuário/senha configurados na box (ex.: `vagrant` / `vagrant`).
-    
+
 ---
 
-## 9. Comandos úteis do Vagrant
+## 8. Comandos úteis do Vagrant
 
 Na pasta do projeto (onde está o `Vagrantfile`):
 
@@ -270,7 +341,7 @@ vagrant box update
 ```
 
 ---
-## 10. Dicas finais
+## 9. Dicas finais
 
 - Sempre execute os comandos do Vagrant na pasta onde está o `Vagrantfile`.
     
