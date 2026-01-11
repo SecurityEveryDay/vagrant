@@ -121,7 +121,7 @@ Vagrant.configure("2") do |config|
   # Box base
   config.vm.box = "SecDay/ubuntu"
   config.vm.hostname = "ubuntu.local"
-  config.vm.box_version = "1.0.0"
+  config.vm.box_version = "1.0.1"
   config.vm.network "private_network", ip: "192.168.56.10"
   config.vm.network "forwarded_port", guest: 22, host: 2221, protocol: "tcp", auto_correct: true
   config.ssh.username = "vagrant"
