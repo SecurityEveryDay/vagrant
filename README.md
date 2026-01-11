@@ -124,6 +124,8 @@ Vagrant.configure("2") do |config|
   config.vm.box_version = "1.0.0"
   config.vm.network "private_network", ip: "192.168.56.10"
   config.vm.network "forwarded_port", guest: 22, host: 2221, protocol: "tcp", auto_correct: true
+  config.ssh.username = "vagrant"
+  config.ssh.password = "vagrant"
   config.vm.provision "shell",
     inline: "apt-get update && apt-get install virtualbox-guest-additions-iso -y && reboot"
 
@@ -132,7 +134,7 @@ Vagrant.configure("2") do |config|
     vb.name = "Ubuntu-SecDay"
     vb.memory = "1024"
     vb.cpus = 1
-    vb.customize ["modifyvm", :id, "--groups", GRUPO_VBOX]
+    vb.customize ["modifyvm", :id, "--groups", "/secday"]
   end
 
 end
@@ -211,7 +213,7 @@ Vagrant.configure("2") do |config|
     vb.name = "windows_2022-SecDay"
     vb.memory = "4096"
     vb.cpus = 2
-    vb.customize ["modifyvm", :id, "--groups", GRUPO_VBOX]
+    vb.customize ["modifyvm", :id, "--groups", "/secday"]
   end
 end
 ```
@@ -268,7 +270,7 @@ Vagrant.configure("2") do |config|
      vb.memory = 2048
      vb.cpus   = 1
      vb.name   = "kali-SecDay"
-     vb.customize ["modifyvm", :id, "--groups", GRUPO_VBOX]
+     vb.customize ["modifyvm", :id, "--groups", "/secday"]
    end
 end
 ```
